@@ -16,6 +16,7 @@ public class Method {
     private boolean isRightMethod;
 
 
+
     public Method(String val, int num) {
         this.val = val;
         this.num = num;
@@ -56,20 +57,17 @@ public class Method {
 
     public void writeMethod() {
         String guideSetsStr;
-        if((isRightMethod) && (guideSets != null) && (guideSets.size() > 1)) {
+        if ((isRightMethod) && (guideSets != null) && (guideSets.size() > 1)) {
             guideSetsStr = guideSets.get(0);
-            for(int i = 1; i < guideSets.size(); i++) {
-                guideSetsStr += "||"+ guideSets.get(i);
+            for (int i = 1; i < guideSets.size(); i++) {
+                guideSetsStr += "||" + guideSets.get(i);
             }
         } else {
             guideSetsStr = guideSet;
         }
-        /*System.out.println("VAL: " + val + " NUM: " + num + " IS_TERMINALE " + isTerminal + " NEXT: " + next + " GUIDE_SET: " + guideSetsStr +
-                             " SHIFT " + shift + " ERROR " + error + " STACK " + needStack + " END " + isEnd ) ;*/
-       /* System.out.println(num + " " + val + " " + guideSetsStr  + " " + next +
-                           " " + shift + " " + error + " " + needStack + " " + isEnd ) ;*/
-        System.out.println(num + ";" + val + ";" +  guideSetsStr  + ";" + next +
-                ";" + shift + ";" + error + ";" + needStack + ";" + isEnd + ";") ;
+
+        System.out.println(num + ";" + val + ";" + guideSetsStr + ";" + next +
+                ";" + shift + ";" + error + ";" + needStack + ";" + isEnd + ";");
     }
 
     public void changeNum(int num) {
@@ -101,8 +99,20 @@ public class Method {
         this.guideSets = guideSets;
     }
 
+    public ArrayList<String> getGuideSets() {
+        return guideSets;
+    }
+
     public String getGuideSet() {
         return guideSet;
+    }
+
+    public boolean getNeedStack() {
+        return needStack;
+    }
+
+    public int getNext() {
+        return next;
     }
 
     public void setIsRightMethod(boolean isRightMethod) {

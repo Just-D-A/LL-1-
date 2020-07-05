@@ -12,12 +12,13 @@ import main.org.volgatech.lexer.io.specialSymbols.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 
 public class LexerReader {
 
-    private Vector<Token> tokenList;
+    private ArrayList<Token> tokenList;
 
     private HashMap<String, KeyWord> keyWords;
     private HashMap<String, DataTypes> dataTypes;
@@ -29,7 +30,7 @@ public class LexerReader {
 
 
     public LexerReader() {
-        tokenList = new Vector<>();
+        tokenList = new ArrayList<>();
         //______________
         dataTypes = new HashMap<>();
         dataTypes.put("int",     new DataTypes());
@@ -40,6 +41,10 @@ public class LexerReader {
         //______________
         keyWords = new HashMap<>();
         keyWords.put("write", new KeyWord());
+        keyWords.put("PROG", new KeyWord());
+        keyWords.put("VAR", new KeyWord());
+        keyWords.put("BEGIN", new KeyWord());
+        keyWords.put("END", new KeyWord());
         keyWords.put("while", new KeyWord());
         keyWords.put("for",   new KeyWord());
         keyWords.put("if",    new KeyWord());
@@ -49,6 +54,7 @@ public class LexerReader {
         specialSymbols.put('-', new ArithmeticOperation());
         specialSymbols.put('/', new ArithmeticOperation());
         specialSymbols.put('*', new ArithmeticOperation());
+        specialSymbols.put(',', new ArithmeticOperation());
         /*specialSymbols.put('>', new DoubleSymbols());
         specialSymbols.put('<', new DoubleSymbols());*/
         specialSymbols.put(' ', new Space());
@@ -67,7 +73,7 @@ public class LexerReader {
         identifiers = new Identifiers();
     }
 
-    public void start(String fileName) throws Exception {
+    public ArrayList<Token> start(String fileName) throws Exception {
         BufferedReader reader;
         reader = new BufferedReader(new FileReader(fileName));
         String line = "";
@@ -238,11 +244,7 @@ public class LexerReader {
             }
         } while (line != null);
 
-        for (Token t : tokenList) {
-            if (t != null) {
-                t.writeToken();
-            }
-        }
+        return tokenList;
     }
 
     private Token checkSubstring(String subStr, int lineInd, int ind) throws Exception { //Проверка строки

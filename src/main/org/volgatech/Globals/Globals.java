@@ -35,4 +35,5 @@ public class Globals {
     public static int                   TYPE_KEY = 19;
 
     public static String GRAMMAR_FILE_NAME = "./src/main/org/volgatech/files/grammar.txt";
+    public static String PROGRAM_FILE_NAME = "./src/main/org/volgatech/files/ProgrameFile.txt";
 }
