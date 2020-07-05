@@ -1,0 +1,6 @@
+<PROG> -> PROG id <VAR> begin <listst> END
+<VAR> -> VAR <idlist>
+<idlist> -> id <A>
+<A> -> , <idlist> | @
+<listst> -> st <B>
+<B> -> <listst> | @

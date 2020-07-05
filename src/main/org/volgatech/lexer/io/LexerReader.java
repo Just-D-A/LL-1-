@@ -15,7 +15,7 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Vector;
 
-public class Reader {
+public class LexerReader {
 
     private Vector<Token> tokenList;
 
@@ -28,7 +28,7 @@ public class Reader {
     private Identifiers identifiers;
 
 
-    public Reader() {
+    public LexerReader() {
         tokenList = new Vector<>();
         //______________
         dataTypes = new HashMap<>();
