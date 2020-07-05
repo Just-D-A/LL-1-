@@ -34,6 +34,9 @@ public class Runner {
 
 
     public Token run() throws Exception {
+        if(!checkGrammarGuideSets()) {
+            return new Token(0, "GRAMMAR SHOUD BE CHANGING", 0, 0);
+        }
         for (Token token : tokenList) {
 
             if (!goToTable(token)) {
@@ -71,6 +74,22 @@ public class Runner {
             goNext(curMethod);
             return equlesTerminaleOrType(token, curMethod.getGuideSet());
         }
+    }
+
+    private boolean checkGrammarGuideSets() {
+        for (Method method : methods) {
+            if ((method.getIsRightMethod()) && (!method.getIsTerminale())) {
+                ArrayList<String> guideSets = method.getGuideSets();
+                for (int i = 0; i < guideSets.size(); i++) {
+                    for (int j = 0; j < guideSets.size(); j++) {
+                        if((guideSets.get(i).equals(guideSets.get(j))) && ( i != j)) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     private void goNext(Method curMethod) {
