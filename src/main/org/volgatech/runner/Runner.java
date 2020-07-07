@@ -2,6 +2,7 @@ package main.org.volgatech.runner;
 
 import main.org.volgatech.Globals.Globals;
 import main.org.volgatech.lexer.domain.Token;
+import main.org.volgatech.lexer.domain.TokenType;
 import main.org.volgatech.table.domain.Method;
 
 import java.util.ArrayList;
@@ -52,6 +53,10 @@ public class Runner {
 
     private boolean goToTable(Token token) {
         Method curMethod = methods.get(curr - 1);
+        //ЯРОСЛАВ ВОТ ТУТ
+        //ЭТО ФУНКЦИЯ ВЫЗЫВАЕТСЯ ДОХУЯ РАЗ И ВЫЗЫВАЕТСЯ РЕКУРСИВНО ОТКРЫТЬ ФАЙЛ МНЕ КАЖЕТСЯ ЛУЧШЕ В КОНСТРУКТОРЕ, А ПОТОМ ТУПО ПИСАТЬ В НЕГО
+        System.out.println(token.getValue()+ ";" + curMethod.getOutString());
+        //ЯРОСЛАВ ДАЛЬШЕ НЕ НАДО
         if ((!curMethod.getIsRightMethod()) || (curMethod.getVal().equals("@"))) {
             goNext(curMethod);
             return goToTable(token);
@@ -105,7 +110,17 @@ public class Runner {
     }
 
     private boolean equlesTerminaleOrType(Token token, String guideSet) {
-        return ((token.getValue().equals(guideSet)) || ((token.getTokenType() == Globals.IDENTIFIER_KEY) && (guideSet.equals("id"))));
+        String tokenVal = token.getValue();
+        int tokenType = token.getTokenType();
+        TokenType type = new TokenType();
+        String valueOfType = type.getTokenType(tokenType);
+        if (tokenVal.equals(guideSet)) {
+            return true;
+        }
+        if (guideSet.equals(valueOfType)) {
+            return true;
+        }
+        return false;
     }
 
     private int findMethodByGuideSet(String val, String guideSet, Token token) {

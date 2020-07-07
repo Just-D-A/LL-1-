@@ -13,7 +13,7 @@ public class TokenType {
     public TokenType() {
         types.put(Globals.ERROR_KEY, "Error");
         types.put(Globals.ARITHMETIC_OPERATION_KEY, "Arithmetic Operation");
-        types.put(Globals.IDENTIFIER_KEY, "Identifier");
+        types.put(Globals.IDENTIFIER_KEY, "id");
         types.put(Globals.KEY_WORD_KEY, "KeyWord");
         types.put(Globals.COMPARISON_OPERATION_KEY, "Comparison Operation");
         types.put(Globals.INTEGER_KEY, "Integer");
@@ -34,11 +34,11 @@ public class TokenType {
         types.put(Globals.TYPE_KEY, "Type");
     }
 
-    public String getTokenType(int i) throws Exception {
+    public String getTokenType(int i)  {
         if (types.containsKey(i)) {
             return types.get(i);
         } else {
-            throw new Exception("ERROR: unknown word");
+            return "ERROR: unknown word";
         }
     }
 }

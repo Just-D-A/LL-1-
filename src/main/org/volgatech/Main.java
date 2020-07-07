@@ -28,7 +28,7 @@ public class Main {
         Table table = new Table(methodList);
         ArrayList<Method> methods = table.createMethodsArr();
 
-        table.writeTible();
+        //table.writeTible();
 
         System.out.println("*** Table complited ***");
         Runner runner = new Runner(tokenList, methods);

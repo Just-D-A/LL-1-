@@ -122,4 +122,19 @@ public class Method {
     public boolean getIsRightMethod() {
         return isRightMethod;
     }
+
+    public String getOutString() {
+        String guideSetsStr;
+        if ((isRightMethod) && (guideSets != null) && (guideSets.size() > 1)) {
+            guideSetsStr = guideSets.get(0);
+            for (int i = 1; i < guideSets.size(); i++) {
+                guideSetsStr += "||" + guideSets.get(i);
+            }
+        } else {
+            guideSetsStr = guideSet;
+        }
+
+        return num + ";" + val + ";" + guideSetsStr + ";" + next +
+                ";" + shift + ";" + error + ";" + needStack + ";" + isEnd + ";";
+    }
 }
