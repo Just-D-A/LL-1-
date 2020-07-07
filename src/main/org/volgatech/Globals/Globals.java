@@ -1,6 +1,7 @@
 package main.org.volgatech.Globals;
 
 public class Globals {
+    //lexer globals
     public static char              FLOAT_SYMBOL = 'e';
     public static char        FIRST_2_NUM_SYMBOL = '$';
     public static char       FIRST_16_NUM_SYMBOL = '@';
@@ -34,6 +35,10 @@ public class Globals {
     public static int      LOGICAL_OPERATION_KEY = 18;
     public static int                   TYPE_KEY = 19;
 
+    //FILES PATHS
     public static String GRAMMAR_FILE_NAME = "./src/main/org/volgatech/files/grammar.txt";
     public static String PROGRAM_FILE_NAME = "./src/main/org/volgatech/files/ProgrameFile.txt";
+
+    //FOR RUNNER AND GRAMMAR
+    public static String GRAMMAR_AND_TOKEN_NUMBER_SYMBOL = "num";
 }

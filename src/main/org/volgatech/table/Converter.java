@@ -2,6 +2,7 @@ package main.org.volgatech.table;
 
 import main.org.volgatech.table.domain.Method;
 import main.org.volgatech.table.domain.MethodList;
+
 import java.util.ArrayList;
 
 public class Converter {
@@ -42,8 +43,11 @@ public class Converter {
                     x++;
 
                 } else {
-                    methods.add(new Method(grammarEl, x));
+                    Method method = new Method(grammarEl, x);
+                    //     if(!isDiscribed(methodsArr, method)) {
+                    methods.add(method);
                     x++;
+                    //   }
                 }
 
             }
@@ -51,6 +55,18 @@ public class Converter {
             methodsArr.add(methodList);
         }
         return сheckNumericSystem(methodsArr);
+    }
+
+    private boolean isDiscribed(ArrayList<MethodList> methodsArr, Method method) {
+        if (!method.getIsTerminale()) {
+            for (MethodList methodList : methodsArr) {
+                String firstVal = methodList.getFirstVal();
+                if (firstVal.equals(method.getVal())) {
+                    return false;
+                }
+            }
+        }
+        return false;
     }
 
     private ArrayList<MethodList> сheckNumericSystem(ArrayList<MethodList> methodsArr) {
@@ -119,6 +135,15 @@ public class Converter {
                 }
             }
         }
+
+        for(MethodList methodListToChange : methodsArr) {
+
+            Method firstRightMethod = methodListToChange.getFirstRightMethod();
+            if(!firstRightMethod.getIsTerminale()) {
+                Method firstMethod = methodListToChange.getFirstMethod();
+                firstMethod.addGuideSets(firstRightMethod.getGuideSets());
+            }
+        }
         //add table params
         //заполняем параметры таблицы в соответствие с тз
         for (MethodList methodListToChange : methodsArr) {
@@ -175,7 +200,14 @@ public class Converter {
         ArrayList<String> guideSetsOfNoterminale = new ArrayList<>();
         for (MethodList methodList : methodListsToFind) {
             if (val.equals(methodList.getFirstVal())) {
-                guideSetsOfNoterminale.add(methodList.getGuideSet());
+                Method firstRightMethod = methodList.getFirstRightMethod();
+                if(firstRightMethod.getIsTerminale()) {
+                    guideSetsOfNoterminale.add(methodList.getGuideSet());
+                } else {
+                 /*   ArrayList<String> guideSetsOfNewNoterminale = findNoterminalAllGuideSets(methodListsToFind, firstRightMethod.getVal());
+                    firstRightMethod.addGuideSets(guideSetsOfNewNoterminale);*/
+                    guideSetsOfNoterminale.addAll(findNoterminalAllGuideSets(methodListsToFind, firstRightMethod.getVal()));
+                }
             }
         }
         return guideSetsOfNoterminale;
@@ -184,13 +216,12 @@ public class Converter {
     private String findNoterminaleGuideSet(ArrayList<MethodList> methodListsToFind, String val) {
         for (MethodList methodList : methodListsToFind) {
             if (val.equals(methodList.getFirstVal())) {
-                Method firstRightMethod = methodList.getMethodsRightPart().get(0);
+                Method firstRightMethod = methodList.getFirstRightMethod();
                 if (firstRightMethod.getIsTerminale()) {
                     return firstRightMethod.getVal();
                 } else {
-                    findNoterminaleGuideSet(methodListsToFind, firstRightMethod.getVal());
+                    return findNoterminaleGuideSet(methodListsToFind, firstRightMethod.getVal());
                 }
-
             }
         }
         return null;

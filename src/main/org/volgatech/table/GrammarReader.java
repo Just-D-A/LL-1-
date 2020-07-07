@@ -26,6 +26,10 @@ public class GrammarReader {
                 break;
             }
             String[] arguments = parseArguments(line);
+            for(String argument: arguments) {
+                System.out.print( argument + " ");
+                System.out.println();
+            }
             ArrayList<String> grammarStr = new ArrayList<>(Arrays.asList(arguments));
             if (checkGrammar(arguments)) {
                 grammar.add(grammarStr);
@@ -47,17 +51,19 @@ public class GrammarReader {
         }
         for(String arg: arguments) {
             char[] argCharArr = arg.toCharArray();
-            if((argCharArr[argCharArr.length - 1] != '>') || (argCharArr[0] == '<')) {
-                if (argCharArr[0] == '<') {
-                    if ((argCharArr[argCharArr.length - 1] != '>')) {
-                        System.out.println("ERR_3 this arg isn't correct" + arg);
-                        return false;
-                    }
-                }
-                if (argCharArr[argCharArr.length - 1] != '>') {
+            if(argCharArr.length > 2) {
+                if ((argCharArr[argCharArr.length - 1] != '>') || (argCharArr[0] == '<')) {
                     if (argCharArr[0] == '<') {
-                        System.out.println("ERR_3 this arg isn't correct" + arg);
-                        return false;
+                        if ((argCharArr[argCharArr.length - 1] != '>')) {
+                            System.out.println("ERR_3 this arg isn't correct" + arg);
+                            return false;
+                        }
+                    }
+                    if (argCharArr[argCharArr.length - 1] != '>') {
+                        if (argCharArr[0] == '<') {
+                            System.out.println("ERR_3 this arg isn't correct" + arg);
+                            return false;
+                        }
                     }
                 }
             }

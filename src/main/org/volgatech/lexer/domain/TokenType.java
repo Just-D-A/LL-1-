@@ -14,7 +14,7 @@ public class TokenType {
         types.put(Globals.ERROR_KEY, "Error");
         types.put(Globals.ARITHMETIC_OPERATION_KEY, "Arithmetic Operation");
         types.put(Globals.IDENTIFIER_KEY, "id");
-        types.put(Globals.KEY_WORD_KEY, "KeyWord");
+        types.put(Globals.KEY_WORD_KEY, "key_word");
         types.put(Globals.COMPARISON_OPERATION_KEY, "Comparison Operation");
         types.put(Globals.INTEGER_KEY, "Integer");
         types.put(Globals.DOUBLE_KEY, "Double");
@@ -30,7 +30,7 @@ public class TokenType {
         types.put(Globals.SEMICOLON_KEY, "Separator");
         types.put(Globals.OPEN_SCOPE_KEY, "Open Scope");
         types.put(Globals.CLOSE_SCOPE_KEY, "Close Scope");
-        types.put(Globals.LOGICAL_OPERATION_KEY, "Logical operation");
+        types.put(Globals.LOGICAL_OPERATION_KEY, "logic_operation");
         types.put(Globals.TYPE_KEY, "Type");
     }
 

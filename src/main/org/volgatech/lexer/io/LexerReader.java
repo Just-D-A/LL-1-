@@ -44,10 +44,11 @@ public class LexerReader {
         keyWords.put("PROG", new KeyWord());
         keyWords.put("VAR", new KeyWord());
         keyWords.put("BEGIN", new KeyWord());
-        keyWords.put("END", new KeyWord());
-        keyWords.put("while", new KeyWord());
-        keyWords.put("for",   new KeyWord());
-        keyWords.put("if",    new KeyWord());
+        keyWords.put("END;", new KeyWord());
+        keyWords.put("END.", new KeyWord());
+        keyWords.put("WHILE", new KeyWord());
+        keyWords.put("FOR",   new KeyWord());
+        keyWords.put("IF",    new KeyWord());
         //______________
         specialSymbols = new HashMap<>();
         specialSymbols.put('+', new ArithmeticOperation());
@@ -55,11 +56,12 @@ public class LexerReader {
         specialSymbols.put('/', new ArithmeticOperation());
         specialSymbols.put('*', new ArithmeticOperation());
         specialSymbols.put(',', new ArithmeticOperation());
-        /*specialSymbols.put('>', new DoubleSymbols());
-        specialSymbols.put('<', new DoubleSymbols());*/
+        specialSymbols.put('>', new MoreLess());
+        specialSymbols.put('<', new MoreLess());
         specialSymbols.put(' ', new Space());
         specialSymbols.put('(', new OpenScope());
         specialSymbols.put(')', new CloseScope());
+        specialSymbols.put(';', new Semicolon());
         //______________
         doubleSymbols = new HashMap<>();
         doubleSymbols.put("&&", new DoubleSymbols());

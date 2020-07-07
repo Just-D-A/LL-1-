@@ -16,7 +16,6 @@ public class Method {
     private boolean isRightMethod;
 
 
-
     public Method(String val, int num) {
         this.val = val;
         this.num = num;
@@ -51,8 +50,12 @@ public class Method {
     }
 
     private boolean checkTerminal() {
-        char[] valCharArr = val.toCharArray();
-        return (valCharArr[0] != '<');
+        if(val.length() > 1) {
+            char[] valCharArr = val.toCharArray();
+            return (valCharArr[0] != '<');
+        } else {
+            return true;
+        }
     }
 
     public void writeMethod() {

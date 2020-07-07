@@ -35,7 +35,7 @@ public class Runner {
 
 
     public Token run() throws Exception {
-        if(!checkGrammarGuideSets()) {
+        if (!checkGrammarGuideSets()) {
             return new Token(0, "GRAMMAR SHOUD BE CHANGING", 0, 0);
         }
         for (Token token : tokenList) {
@@ -52,10 +52,13 @@ public class Runner {
     }
 
     private boolean goToTable(Token token) {
+        if(curr <= 0) {
+            return false;
+        }
         Method curMethod = methods.get(curr - 1);
         //ЯРОСЛАВ ВОТ ТУТ
-        //ЭТО ФУНКЦИЯ ВЫЗЫВАЕТСЯ ДОХУЯ РАЗ И ВЫЗЫВАЕТСЯ РЕКУРСИВНО ОТКРЫТЬ ФАЙЛ МНЕ КАЖЕТСЯ ЛУЧШЕ В КОНСТРУКТОРЕ, А ПОТОМ ТУПО ПИСАТЬ В НЕГО
-        System.out.println(token.getValue()+ ";" + curMethod.getOutString());
+        //ЭТО ФУНКЦИЯ ВЫЗЫВАЕТСЯ МНОГО РАЗ И ВЫЗЫВАЕТСЯ РЕКУРСИВНО ОТКРЫТЬ ФАЙЛ МНЕ КАЖЕТСЯ ЛУЧШЕ В КОНСТРУКТОРЕ, А ПОТОМ ТУПО ПИСАТЬ В НЕГО
+        System.out.println(token.getValue() + ";" + curMethod.getOutString());
         //ЯРОСЛАВ ДАЛЬШЕ НЕ НАДО
         if ((!curMethod.getIsRightMethod()) || (curMethod.getVal().equals("@"))) {
             goNext(curMethod);
@@ -63,7 +66,9 @@ public class Runner {
         } else if (!curMethod.getIsTerminale()) {
             ArrayList<String> guideSets = curMethod.getGuideSets();
             if (guideSets != null) {
+
                 for (String guideSet : guideSets) {
+
                     if (equlesTerminaleOrType(token, guideSet)) {
                         curMethod.setNext(findMethodByGuideSet(curMethod.getVal(), guideSet, token));
                         goNext(curMethod);
@@ -87,7 +92,8 @@ public class Runner {
                 ArrayList<String> guideSets = method.getGuideSets();
                 for (int i = 0; i < guideSets.size(); i++) {
                     for (int j = 0; j < guideSets.size(); j++) {
-                        if((guideSets.get(i).equals(guideSets.get(j))) && ( i != j)) {
+                        if ((guideSets.get(i).equals(guideSets.get(j))) && (i != j)) {
+                            System.out.println(method.getVal() + " " + method.getNum() + " " + guideSets.get(i));
                             return false;
                         }
                     }
@@ -111,16 +117,13 @@ public class Runner {
 
     private boolean equlesTerminaleOrType(Token token, String guideSet) {
         String tokenVal = token.getValue();
-        int tokenType = token.getTokenType();
+        int tokenTypeIndex = token.getTokenType();
         TokenType type = new TokenType();
-        String valueOfType = type.getTokenType(tokenType);
-        if (tokenVal.equals(guideSet)) {
-            return true;
-        }
-        if (guideSet.equals(valueOfType)) {
-            return true;
-        }
-        return false;
+        String valueOfType = type.getTokenType(tokenTypeIndex);
+        System.out.println(guideSet + " " + ((tokenTypeIndex >= Globals.INTEGER_KEY) &
+                (tokenTypeIndex <= Globals.FLOAT_KEY) & (guideSet.equals(Globals.GRAMMAR_AND_TOKEN_NUMBER_SYMBOL))));
+        return (tokenVal.equals(guideSet)) ^ (guideSet.equals(valueOfType)) ^
+                ((tokenTypeIndex >= Globals.INTEGER_KEY) & (tokenTypeIndex <= Globals.FLOAT_KEY) & (guideSet.equals(Globals.GRAMMAR_AND_TOKEN_NUMBER_SYMBOL)));
     }
 
     private int findMethodByGuideSet(String val, String guideSet, Token token) {

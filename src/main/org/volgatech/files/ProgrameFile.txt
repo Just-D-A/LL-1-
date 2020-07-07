@@ -1,6 +1,6 @@
 PROG Ship
 VAR a, b, c
 BEGIN
-    st st
-END
+    IF(a>2)
+END.
 

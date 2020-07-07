@@ -28,12 +28,12 @@ public class Main {
         Table table = new Table(methodList);
         ArrayList<Method> methods = table.createMethodsArr();
 
-        //table.writeTible();
+        table.writeTible();
 
         System.out.println("*** Table complited ***");
         Runner runner = new Runner(tokenList, methods);
         Token errorToken = runner.run();
-        if(errorToken == null) {
+        if (errorToken == null) {
             System.out.println("Complited!");
         } else {
             System.out.println("ERROR");
