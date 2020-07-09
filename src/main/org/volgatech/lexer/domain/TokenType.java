@@ -12,7 +12,7 @@ public class TokenType {
 
     public TokenType() {
         types.put(Globals.ERROR_KEY, "Error");
-        types.put(Globals.ARITHMETIC_OPERATION_KEY, "Arithmetic Operation");
+        types.put(Globals.ARITHMETIC_OPERATION_KEY, "arithmetic_operation");
         types.put(Globals.IDENTIFIER_KEY, "id");
         types.put(Globals.KEY_WORD_KEY, "key_word");
         types.put(Globals.COMPARISON_OPERATION_KEY, "Comparison Operation");

@@ -26,10 +26,6 @@ public class GrammarReader {
                 break;
             }
             String[] arguments = parseArguments(line);
-            for(String argument: arguments) {
-                System.out.print( argument + " ");
-                System.out.println();
-            }
             ArrayList<String> grammarStr = new ArrayList<>(Arrays.asList(arguments));
             if (checkGrammar(arguments)) {
                 grammar.add(grammarStr);

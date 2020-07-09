@@ -39,5 +39,7 @@ public class Main {
             System.out.println("ERROR");
             errorToken.writeToken();
         }
+
+
     }
 }

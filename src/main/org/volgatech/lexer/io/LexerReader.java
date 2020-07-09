@@ -44,7 +44,7 @@ public class LexerReader {
         keyWords.put("PROG", new KeyWord());
         keyWords.put("VAR", new KeyWord());
         keyWords.put("BEGIN", new KeyWord());
-        keyWords.put("END;", new KeyWord());
+        keyWords.put("END", new KeyWord());
         keyWords.put("END.", new KeyWord());
         keyWords.put("WHILE", new KeyWord());
         keyWords.put("FOR",   new KeyWord());

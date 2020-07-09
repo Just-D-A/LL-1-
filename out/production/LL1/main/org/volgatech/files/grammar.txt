@@ -1,6 +1,12 @@
-<PROG> -> PROG id <VAR> BEGIN <listst> END
+<PROG> -> PROG id <VAR> BEGIN <key_words> END.
 <VAR> -> VAR <idlist>
 <idlist> -> id <A>
 <A> -> , <idlist> | @
-<listst> -> st <B>
-<B> -> <listst> | @
+<key_words> -> <key_word> <B>
+<B> -> ; <key_words> | @
+<key_word> -> <IF> | <ASSIGNMENT> | <WHILE>
+<IF> -> IF ( <condition> ) BEGIN <key_words> END
+<condition> -> <id_or_num> logic_operation <id_or_num>
+<id_or_num> -> num | id
+<ASSIGNMENT> -> <id_or_num> = <id_or_num>
+<WHILE> -> WHILE ( <condition> ) BEGIN <key_words> END

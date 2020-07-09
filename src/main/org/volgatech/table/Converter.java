@@ -1,9 +1,12 @@
 package main.org.volgatech.table;
 
+import main.org.volgatech.Globals.Globals;
 import main.org.volgatech.table.domain.Method;
 import main.org.volgatech.table.domain.MethodList;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Converter {
     private ArrayList<ArrayList<String>> grammar;
@@ -44,10 +47,8 @@ public class Converter {
 
                 } else {
                     Method method = new Method(grammarEl, x);
-                    //     if(!isDiscribed(methodsArr, method)) {
                     methods.add(method);
                     x++;
-                    //   }
                 }
 
             }
@@ -96,13 +97,14 @@ public class Converter {
             }
         }
         //change last next
-        //если грамматика заканчивается нетерминалом тогда его значение NEXT = NULL
+        //если грамматика заканчивается нетерминалом тогда его значение NEXT = -1
         for (MethodList methodListToChange : methodsArr) {
             methodListToChange.changeLastNonterminalNext();
         }
 
         //add guideSets
         //добавляем направляющие множества
+
         for (MethodList methodListToChange : methodsArr) {
             methodListToChange.setFirstGuideSet(methodListToChange.getMethodsRightPart().get(0).getVal());
             for (Method method : methodListToChange.getMethodsRightPart()) {
@@ -110,43 +112,74 @@ public class Converter {
                     method.setGuideSet(findNoterminaleGuideSet(methodsArr, method.getVal()));
 
                 } else {
-                    if (method.getVal().equals("@")) {
-                        method.setGuideSet(findExitSymbolGuideSet(methodListToChange, methodsArr, "@"));
-                    } else {
+                    if (!method.getVal().equals("@"))
                         method.setGuideSet(method.getVal());
+                }
+            }
+        }
+
+        //FOR @ SYM
+
+        for (int i = methodsArr.size() - 1; i >= 0; i--) {
+            MethodList methodListToChange = methodsArr.get(i);
+            methodListToChange.setFirstGuideSet(methodListToChange.getMethodsRightPart().get(0).getVal());
+            for (Method method : methodListToChange.getMethodsRightPart()) {
+                if (method.getVal().equals("@")) {
+                    ArrayList<String> guideSets = newGuideSetsForExitSym(methodsArr, methodListToChange.getFirstVal(), new ArrayList<>());
+                    method.addGuideSets(guideSets);
+                }
+            }
+        }
+
+        for (
+                MethodList methodListToChange : methodsArr) {
+            Method firstRightMethod = methodListToChange.getFirstRightMethod();
+            if (firstRightMethod.getVal().equals("@")) {
+                Method firstMethod = methodListToChange.getFirstMethod();
+                firstMethod.addGuideSets(firstRightMethod.getGuideSets());
+                for(String str: firstRightMethod.getGuideSets()) {
+                    System.out.println(str);
+                }
+            }
+        }
+        // END FOR @ SYM
+
+        for (
+                MethodList methodListToChange : methodsArr) {
+            for (Method method : methodListToChange.getMethodsRightPart()) {
+                if (!method.getIsTerminale()) {
+                    if(method.getGuideSets().isEmpty()) {
+                        method.addGuideSets(findNoterminalAllGuideSets(methodsArr, method.getVal()));
                     }
                 }
             }
         }
-        for (MethodList methodListToChange : methodsArr) {
-            //methodListToChange.setFirstGuideSet(methodListToChange.getMethodsRightPart().get(0).getVal())
-            Method firstRight = methodListToChange.getFirstRightMethod();
-            if (firstRight.getVal().equals("@")) {
-                methodListToChange.setFirstGuideSet(firstRight.getGuideSet());
-            } else if (!firstRight.getIsTerminale()) {
-                methodListToChange.setFirstGuideSet(findNoterminaleGuideSet(methodsArr, firstRight.getVal()));
-            }
-        }
 
         for (MethodList methodListToChange : methodsArr) {
-            for (Method method : methodListToChange.getMethodsRightPart()) {
-                if (!method.getIsTerminale()) {
-                    method.addGuideSets(findNoterminalAllGuideSets(methodsArr, method.getVal()));
-                }
-            }
-        }
-
-        for(MethodList methodListToChange : methodsArr) {
 
             Method firstRightMethod = methodListToChange.getFirstRightMethod();
-            if(!firstRightMethod.getIsTerminale()) {
-                Method firstMethod = methodListToChange.getFirstMethod();
+            Method firstMethod = methodListToChange.getFirstMethod();
+            if (firstRightMethod.getIsTerminale()) {
+
+                if(!firstRightMethod.getVal().equals("@")) {
+                    firstMethod.addGuideSets(firstRightMethod.getGuideSets());
+                } else {
+                firstMethod.setGuideSet(firstRightMethod.getGuideSet());
+                }
+            } else {
                 firstMethod.addGuideSets(firstRightMethod.getGuideSets());
             }
         }
+
+   /*     for(MethodList methodList: methodsArr) {
+            methodList.writeOut();
+            System.out.println("_____");
+        }*/
+
         //add table params
-        //заполняем параметры таблицы в соответствие с тз
-        for (MethodList methodListToChange : methodsArr) {
+        //заполняем параметры таблицы в соответствии с тз
+        for (
+                MethodList methodListToChange : methodsArr) {
             ArrayList<Method> methodsRightPart = methodListToChange.getMethodsRightPart();
             for (int i = 0; i < methodsRightPart.size(); i++) {
                 Method methodRightPart = methodsRightPart.get(i);
@@ -167,7 +200,6 @@ public class Converter {
                 firstMethod.setError(false);
             }
         }
-
 
         return methodsArr;
     }
@@ -201,12 +233,14 @@ public class Converter {
         for (MethodList methodList : methodListsToFind) {
             if (val.equals(methodList.getFirstVal())) {
                 Method firstRightMethod = methodList.getFirstRightMethod();
-                if(firstRightMethod.getIsTerminale()) {
-                    guideSetsOfNoterminale.add(methodList.getGuideSet());
+                if (firstRightMethod.getIsTerminale()) {
+                    if (firstRightMethod.getVal().equals("@")) {
+                        guideSetsOfNoterminale.addAll(firstRightMethod.getGuideSets());
+                    } else {
+                        guideSetsOfNoterminale.add(methodList.getGuideSet());
+                    }
                 } else {
-                 /*   ArrayList<String> guideSetsOfNewNoterminale = findNoterminalAllGuideSets(methodListsToFind, firstRightMethod.getVal());
-                    firstRightMethod.addGuideSets(guideSetsOfNewNoterminale);*/
-                    guideSetsOfNoterminale.addAll(findNoterminalAllGuideSets(methodListsToFind, firstRightMethod.getVal()));
+                        guideSetsOfNoterminale.addAll(findNoterminalAllGuideSets(methodListsToFind, firstRightMethod.getVal()));
                 }
             }
         }
@@ -220,6 +254,7 @@ public class Converter {
                 if (firstRightMethod.getIsTerminale()) {
                     return firstRightMethod.getVal();
                 } else {
+                    System.out.println(" GRAMMAR RIGHT " + firstRightMethod.getVal());
                     return findNoterminaleGuideSet(methodListsToFind, firstRightMethod.getVal());
                 }
             }
@@ -227,31 +262,57 @@ public class Converter {
         return null;
     }
 
-
-    private String findExitSymbolGuideSet(MethodList methodListWithExitSym, ArrayList<MethodList> methodsArr, String val) {
-        ArrayList<Method> methods = methodListWithExitSym.getMethodsRightPart();
-        Method lastRightMethod = methodListWithExitSym.getLastRightMethod();
-        String result = "NO";
-        if (val.equals(lastRightMethod.getVal())) {
-            String firstMethodVal = methodListWithExitSym.getFirstVal();
-            for (MethodList methodList : methodsArr) {
-                ArrayList<Method> methods1 = methodList.getMethodsRightPart();
-                for (Method method : methods1) {
-                    if (firstMethodVal.equals(method.getVal())) {
-                        return findExitSymbolGuideSet(methodList, methodsArr, firstMethodVal);
+    private ArrayList<String> newGuideSetsForExitSym(ArrayList<MethodList> methodArr, String val, ArrayList<String> store) {
+        //   System.out.println("FOR " + val);
+        ArrayList<String> result = new ArrayList<>();
+        ArrayList<String> valResult = new ArrayList<>();
+        for (String storeEl : store) {
+            if (storeEl.equals(val)) {
+                return result;
+            }
+        }
+        store.add(val);
+        //    System.out.println("_____IN FOR__________");
+        for (MethodList curMethodList : methodArr) {
+            ArrayList<Method> rightMethods = curMethodList.getMethodsRightPart();
+            for (Method method : rightMethods) {
+                if (method.getVal().equals(val)) {
+                    //   System.out.println( "I FIND IN CurFirst: " + curMethodList.getFirstVal());
+                    if (val.equals(curMethodList.getLastRightMethod().getVal())) {
+                        valResult.add(curMethodList.getFirstVal());
+                    } else {
+                        for (int i = 0; i < rightMethods.size(); i++) {
+                            if (rightMethods.get(i).getVal().equals(val)) {
+                                Method nextMethod = rightMethods.get(i + 1);
+                                if (nextMethod.getIsTerminale()) {
+                                    result.add(nextMethod.getVal());
+                                } else {
+                                    nextMethod.addGuideSets(findNoterminalAllGuideSets(methodArr, nextMethod.getVal()));
+                                    result.addAll(nextMethod.getGuideSets());
+                                    for (String str : nextMethod.getGuideSets()) {
+                                        System.out.println("Added 2 " + str + " to num " + rightMethods.get(i).getNum());
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
-        } else {
-            int x = 0;
-            for (int i = 0; i < methods.size(); i++) {
-                if (val.equals(methods.get(i).getVal())) {
-                    x = i;
-                    break;
-                }
-            }
-            return methods.get(x + 1).getGuideSet();
         }
+
+        for (String vals : valResult) {
+            ArrayList<String> added = newGuideSetsForExitSym(methodArr, vals, store);
+            result.addAll(added);
+        }
+        if(result.isEmpty()) {
+            result.add(Globals.END_GUIDE_SET_VAL);
+        }
+        Set<String> set = new HashSet<>(result);
+        result.clear();
+        result.addAll(set);
         return result;
+
     }
+
+
 }

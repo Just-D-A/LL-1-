@@ -1,6 +1,13 @@
 PROG Ship
 VAR a, b, c
 BEGIN
-    st st
-END
-
+    IF(a>2)
+     BEGIN
+       a = 4
+     END;
+    WHILE(c == 2)
+      BEGIN
+        c = 2;
+        b = 2
+      END
+END.

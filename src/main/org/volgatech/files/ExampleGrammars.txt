@@ -1,3 +1,25 @@
+<E> -> <E> + <T>
+<E> -> <T>
+<T> -> <T> * <F>
+<T> -> <F>
+<F> -> ( <E> )
+<F> -> <F>
+<F> -> id
+<F> -> num
+/////////
+<S> -> <A> <B> <C>
+<A> -> <A> a
+<A> -> @
+<B> -> <B> b
+<B> -> @
+<C> -> <C> c
+<C> -> @
+////////
+<S> -> <A> <B> <C>
+<A> -> a | @
+<B> -> b | @
+<C> -> c | @
+/////////
 <PROG> -> PROG id <VAR> BEGIN <key_words> END.
 <VAR> -> VAR <idlist>
 <idlist> -> id <A>

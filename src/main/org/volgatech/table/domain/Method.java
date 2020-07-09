@@ -36,6 +36,7 @@ public class Method {
         isTerminal = false;
         next = -1;
         guideSet = "NO";
+        guideSets = new ArrayList<>();
     }
 
     public void setParams(boolean shift, boolean error, boolean needStack, boolean isEnd) {
@@ -60,7 +61,7 @@ public class Method {
 
     public void writeMethod() {
         String guideSetsStr;
-        if ((isRightMethod) && (guideSets != null) && (guideSets.size() > 1)) {
+        if ((guideSets != null) && (guideSets.size() >= 1)) {
             guideSetsStr = guideSets.get(0);
             for (int i = 1; i < guideSets.size(); i++) {
                 guideSetsStr += "||" + guideSets.get(i);
@@ -99,7 +100,7 @@ public class Method {
     }
 
     public void addGuideSets(ArrayList<String> guideSets) {
-        this.guideSets = guideSets;
+        this.guideSets.addAll(guideSets);
     }
 
     public ArrayList<String> getGuideSets() {
