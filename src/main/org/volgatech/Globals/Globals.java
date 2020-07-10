@@ -33,7 +33,8 @@ public class Globals {
     public static int             OPEN_SCOPE_KEY = 16;
     public static int            CLOSE_SCOPE_KEY = 17;
     public static int      LOGICAL_OPERATION_KEY = 18;
-    public static int                   TYPE_KEY = 19;
+    public static int      LOGICAL_MORE_LESS_KEY = 18;
+    public static int                   TYPE_KEY = 20;
 
     //FILES PATHS
     public static String GRAMMAR_FILE_NAME = "./src/main/org/volgatech/files/grammar.txt";

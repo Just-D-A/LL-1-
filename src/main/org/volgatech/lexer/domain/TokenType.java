@@ -31,6 +31,7 @@ public class TokenType {
         types.put(Globals.OPEN_SCOPE_KEY, "Open Scope");
         types.put(Globals.CLOSE_SCOPE_KEY, "Close Scope");
         types.put(Globals.LOGICAL_OPERATION_KEY, "logic_operation");
+        types.put(Globals.LOGICAL_MORE_LESS_KEY, "more_less_operation");
         types.put(Globals.TYPE_KEY, "Type");
     }
 

@@ -15,7 +15,6 @@ public class MethodList {
         this.firstMethod.setIsRightMethod(false);
     }
 
-
     public void addRightPartArray(ArrayList<Method> methodsRightPart) {
         this.methodsRightPart = methodsRightPart;
         for(Method methodRightPart: this.methodsRightPart) {

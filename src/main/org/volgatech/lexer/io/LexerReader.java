@@ -14,7 +14,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Vector;
 
 public class LexerReader {
 
@@ -64,12 +63,12 @@ public class LexerReader {
         specialSymbols.put(';', new Semicolon());
         //______________
         doubleSymbols = new HashMap<>();
-        doubleSymbols.put("&&", new DoubleSymbols());
-        doubleSymbols.put("||", new DoubleSymbols());
-        doubleSymbols.put("==", new DoubleSymbols());
-        doubleSymbols.put("!=", new DoubleSymbols());
-        doubleSymbols.put(">=", new DoubleSymbols());
-        doubleSymbols.put("<=", new DoubleSymbols());
+        doubleSymbols.put("&&", new LogicSymbols());
+        doubleSymbols.put("||", new LogicSymbols());
+        doubleSymbols.put("==", new MoreLessEq());
+        doubleSymbols.put("!=", new MoreLessEq());
+        doubleSymbols.put(">=", new MoreLessEq());
+        doubleSymbols.put("<=", new MoreLessEq());
         //______________
         numbers = new Numbers();
         identifiers = new Identifiers();

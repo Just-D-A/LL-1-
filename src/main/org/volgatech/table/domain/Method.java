@@ -7,8 +7,8 @@ public class Method {
     private int num;
     private boolean isTerminal;
     private int next;
-    private String guideSet; //направляющее множество
-    private boolean shift; // сдвиг
+    private String guideSet;     //направляющее множество
+    private boolean shift;       //сдвиг
     private boolean error;
     private boolean needStack;
     private boolean isEnd;
@@ -51,7 +51,7 @@ public class Method {
     }
 
     private boolean checkTerminal() {
-        if(val.length() > 1) {
+        if (val.length() > 1) {
             char[] valCharArr = val.toCharArray();
             return (valCharArr[0] != '<');
         } else {
@@ -85,7 +85,6 @@ public class Method {
     public int getNum() {
         return num;
     }
-
 
     public String getVal() {
         return val;
@@ -129,7 +128,7 @@ public class Method {
 
     public String getOutString() {
         String guideSetsStr;
-        if ((isRightMethod) && (guideSets != null) && (guideSets.size() > 1)) {
+        if ((guideSets != null) & (guideSets.size() >= 1)) {
             guideSetsStr = guideSets.get(0);
             for (int i = 1; i < guideSets.size(); i++) {
                 guideSetsStr += "||" + guideSets.get(i);

@@ -1,11 +1,9 @@
-package main.org.volgatech.lexer.io.specialSymbols;
+package main.org.volgatech.lexer.io.doubleSymbols;
 
 import main.org.volgatech.Globals.Globals;
 import main.org.volgatech.lexer.domain.Token;
 
-
-public class MoreLess extends SpecialSymbols {
-    @Override
+public class MoreLessEq extends DoubleSymbols {
     public Token execute(String val, int line, int position) {
         return new Token(Globals.LOGICAL_MORE_LESS_KEY, val, line, position);
     }

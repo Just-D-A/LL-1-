@@ -51,6 +51,9 @@ public class Numbers {
     }
 
     private boolean checkAfterE(int i) {
+        if(i+1 >= num.length) {
+            return true;
+        }
         if ((i + 1 < num.length) && ((num[i + 1] == '+') || (num[i + 1] == '-'))) {
             i++;
             if (!(i + 1 < num.length)) {

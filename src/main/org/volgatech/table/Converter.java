@@ -120,8 +120,9 @@ public class Converter {
 
         //FOR @ SYM
 
-        for (int i = methodsArr.size() - 1; i >= 0; i--) {
-            MethodList methodListToChange = methodsArr.get(i);
+        //for (int i = methodsArr.size() - 1; i >= 0; i--) {
+        for(MethodList methodListToChange: methodsArr)
+        {
             methodListToChange.setFirstGuideSet(methodListToChange.getMethodsRightPart().get(0).getVal());
             for (Method method : methodListToChange.getMethodsRightPart()) {
                 if (method.getVal().equals("@")) {
@@ -148,9 +149,10 @@ public class Converter {
                 MethodList methodListToChange : methodsArr) {
             for (Method method : methodListToChange.getMethodsRightPart()) {
                 if (!method.getIsTerminale()) {
-                    if(method.getGuideSets().isEmpty()) {
+                    //if(method.getGuideSets().isEmpty()) {
+                        method.getGuideSets().clear();
                         method.addGuideSets(findNoterminalAllGuideSets(methodsArr, method.getVal()));
-                    }
+                 //   }
                 }
             }
         }
@@ -244,6 +246,9 @@ public class Converter {
                 }
             }
         }
+      /*  Set<String> set = new HashSet<>(guideSetsOfNoterminale);
+        guideSetsOfNoterminale.clear();
+        guideSetsOfNoterminale.addAll(set);*/
         return guideSetsOfNoterminale;
     }
 
@@ -252,9 +257,13 @@ public class Converter {
             if (val.equals(methodList.getFirstVal())) {
                 Method firstRightMethod = methodList.getFirstRightMethod();
                 if (firstRightMethod.getIsTerminale()) {
+                    if(firstRightMethod.getVal().equals("@")) {
+                        Method firstMethod = methodList.getFirstMethod();
+                        firstMethod.addGuideSets(firstRightMethod.getGuideSets());
+                    }
                     return firstRightMethod.getVal();
                 } else {
-                    System.out.println(" GRAMMAR RIGHT " + firstRightMethod.getVal());
+                 //   System.out.println(" GRAMMAR RIGHT " + firstRightMethod.getVal());
                     return findNoterminaleGuideSet(methodListsToFind, firstRightMethod.getVal());
                 }
             }
@@ -272,6 +281,13 @@ public class Converter {
             }
         }
         store.add(val);
+       /* for (MethodList curMethodList : methodArr) {
+            Method rightMethod = curMethodList.getFirstRightMethod();
+            Method leftMethod = curMethodList.getFirstMethod();
+            if ((val.equals(leftMethod.getVal())) & (rightMethod.getVal().equals("@"))) {
+                result.addAll(newGuideSetsForExitSym(methodArr, val, store));
+            }
+        }*/
         //    System.out.println("_____IN FOR__________");
         for (MethodList curMethodList : methodArr) {
             ArrayList<Method> rightMethods = curMethodList.getMethodsRightPart();
