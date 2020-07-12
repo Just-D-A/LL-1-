@@ -24,18 +24,25 @@
 <B> -> b | @
 <C> -> c | @
 /////////
+
 <PROG> -> PROG id <VAR> BEGIN <key_words> END.
 <VAR> -> VAR <idlist>
 <idlist> -> id <A>
 <A> -> , <idlist> | @
-<key_words> -> <key_word> ; <B>
-<B> -> <key_words> | @
+<key_words> -> <key_word> <B>
+<B> -> ; <key_words> | @
 <key_word> -> <IF> | <ASSIGNMENT> | <WHILE>
 <IF> -> IF ( <condition> ) BEGIN <key_words> END
-<condition> -> <id_or_num> logic_operation <id_or_num>
+<condition> -> <id_or_num> more_less_operation <id_or_num>
 <id_or_num> -> num | id
-<ASSIGNMENT> -> <id_or_num> = <id_or_num>
+<ASSIGNMENT> -> id = <Expr>
 <WHILE> -> WHILE ( <condition> ) BEGIN <key_words> END
+<Expr> -> <E>
+<E> -> <T> <G>
+<G> -> + <T> <G> | @
+<T> -> <F> <U>
+<U> -> * <F> <U> | <F> | @
+<F> -> ( <E> ) | - <F> | id | num
 /////////
 <E> -> <T> <G>
 <G> -> + <T> <G>

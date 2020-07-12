@@ -6,7 +6,7 @@
 <B> -> ; <key_words> | @
 <key_word> -> <IF> | <ASSIGNMENT> | <WHILE>
 <IF> -> IF ( <condition> ) BEGIN <key_words> END
-<condition> -> <id_or_num> more_less_operation <id_or_num>
+<condition> -> <Expr> more_less_operation <Expr>
 <id_or_num> -> num | id
 <ASSIGNMENT> -> id = <Expr>
 <WHILE> -> WHILE ( <condition> ) BEGIN <key_words> END

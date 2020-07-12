@@ -281,14 +281,6 @@ public class Converter {
             }
         }
         store.add(val);
-       /* for (MethodList curMethodList : methodArr) {
-            Method rightMethod = curMethodList.getFirstRightMethod();
-            Method leftMethod = curMethodList.getFirstMethod();
-            if ((val.equals(leftMethod.getVal())) & (rightMethod.getVal().equals("@"))) {
-                result.addAll(newGuideSetsForExitSym(methodArr, val, store));
-            }
-        }*/
-        //    System.out.println("_____IN FOR__________");
         for (MethodList curMethodList : methodArr) {
             ArrayList<Method> rightMethods = curMethodList.getMethodsRightPart();
             for (Method method : rightMethods) {
@@ -296,6 +288,20 @@ public class Converter {
                     //   System.out.println( "I FIND IN CurFirst: " + curMethodList.getFirstVal());
                     if (val.equals(curMethodList.getLastRightMethod().getVal())) {
                         valResult.add(curMethodList.getFirstVal());
+                        for (int i = 0; i < rightMethods.size()-1; i++) {
+                            if (rightMethods.get(i).getVal().equals(val)) {
+                                Method nextMethod = rightMethods.get(i + 1);
+                                if (nextMethod.getIsTerminale()) {
+                                    result.add(nextMethod.getVal());
+                                } else {
+                                    nextMethod.addGuideSets(findNoterminalAllGuideSets(methodArr, nextMethod.getVal()));
+                                    result.addAll(nextMethod.getGuideSets());
+                                    for (String str : nextMethod.getGuideSets()) {
+                                        System.out.println("Added 2 " + str + " to num " + rightMethods.get(i).getNum());
+                                    }
+                                }
+                            }
+                        }
                     } else {
                         for (int i = 0; i < rightMethods.size(); i++) {
                             if (rightMethods.get(i).getVal().equals(val)) {
