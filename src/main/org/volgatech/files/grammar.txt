@@ -3,7 +3,8 @@
 <idlist> -> id <A>
 <A> -> , <idlist> | @
 <key_words> -> <key_word> <B>
-<B> -> ; <key_words> | @
+<B> -> ; <C> | @
+<C> -> <key_words> | @
 <key_word> -> <IF> | <ASSIGNMENT> | <WHILE>
 <IF> -> IF ( <condition> ) BEGIN <key_words> END
 <condition> -> <Expr> more_less_operation <Expr>
