@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 public class Main {
 
+    final int mark = 2+2+1;
+
     public static void main(String[] args) throws Exception {
         LexerReader lexerReader = new LexerReader();
         ArrayList<Token> tokenList = lexerReader.start(Globals.PROGRAM_FILE_NAME);
@@ -33,8 +35,22 @@ public class Main {
         System.out.println("*** Table complited ***");
         Runner runner = new Runner(tokenList, methods);
         Token errorToken = runner.run();
+
         if (errorToken == null) {
-            System.out.println("Complited!");
+
+            System.out.println("          **");
+            System.out.println("         *0**");
+            System.out.println("        ****0*");
+            System.out.println("       ****0***");
+            System.out.println("      *0*****0**");
+            System.out.println("     ****0*****0*");
+            System.out.println("    **0***0***0***");
+            System.out.println("   *0***0**0***0***");
+            System.out.println("   *0***0**0***0***");
+            System.out.println("  0** Complited! ***");
+            System.out.println(" *** LL1  success *0*");
+            System.out.println("**0 HAPPY NEW YEAR ***");
+
         } else {
             System.out.println("ERROR");
             errorToken.writeToken();

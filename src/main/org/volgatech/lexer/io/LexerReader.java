@@ -33,7 +33,7 @@ public class LexerReader {
         //______________
         dataTypes = new HashMap<>();
         dataTypes.put("int",     new DataTypes());
-        dataTypes.put("double",  new DataTypes());
+        dataTypes.put("real",  new DataTypes());
         dataTypes.put("boolean", new DataTypes());
         dataTypes.put("float",   new DataTypes());
         dataTypes.put("string",  new DataTypes());

@@ -1,5 +1,5 @@
-<PROG> -> PROG id <VAR> BEGIN <key_words> END.
-<VAR> -> VAR <idlist>
+<PROG> -> PROGRAM id <DEC> BEGIN <key_words> END.
+<DEC> -> VAR <idlist> : type
 <idlist> -> id <A>
 <A> -> , <idlist> | @
 <key_words> -> <key_word> <B>
